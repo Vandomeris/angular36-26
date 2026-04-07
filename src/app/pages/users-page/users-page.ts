@@ -1,4 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { User } from '../../../types';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-users-page',
@@ -6,10 +8,14 @@ import { Component, signal } from '@angular/core';
   templateUrl: './users-page.html',
   styleUrl: './users-page.css',
 })
-export class UsersPage {
-  users = signal([
-    { id: 1, name: 'Ivan Serikov', age: 28 },
-    { id: 2, name: 'Alexander Ivanov', age: 32 },
-    { id: 3, name: 'Dmitry Petrov', age: 25 },
-  ]);
+export class UsersPage implements OnInit {
+  private userService = inject(UserService);
+
+  users = signal<User[]>([]);
+
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe((data) => {
+      this.users.set(data);
+    });
+  }
 }

@@ -1,18 +1,15 @@
-<div>
+<div class="grid gap-10 grid-cols-4">
 
-  @defer (on viewport)
-  {
+
   @for (user of users(); track user.id) {
 
-  <div class="flex gap-x-4">
-    <span>{{ user.id }}</span>
-    <span>{{ user.name }}</span>
-    <span>{{ user.age }}</span>
+  <div>
+    <p> {{user.name}} </p>
+    <p> {{user.email}} </p>
+    <p> {{user.address.city}} </p>
   </div>
 
   }
 
-  }@placeholder {
-  <p>Вывод списка.....</p>
-  }
+
 </div>
